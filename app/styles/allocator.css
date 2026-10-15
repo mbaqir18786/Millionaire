@@ -1,0 +1,630 @@
+/* ─── Student Income Allocator Section ───────────────────────────────────────── */
+.student-allocator-wrapper {
+    padding: 60px 20px 0 !important;
+}
+
+.student-allocator-section {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0 100px;
+    background-color: transparent;
+}
+
+/* ─── Section Header ─────────────────────────────────────────────────────────── */
+.allocator__header {
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto 50px;
+}
+
+.allocator__kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--color-lightgreen);
+    color: var(--color-dark);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    margin-bottom: 20px;
+}
+
+.allocator__title {
+    font-family: 'Epilogue', sans-serif;
+    font-size: clamp(2.4rem, 4.5vw, 4.2rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--color-dark);
+    margin-bottom: 20px;
+}
+
+.allocator__title em {
+    font-style: italic;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 400;
+    color: var(--color-green);
+}
+
+.allocator__subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(1rem, 1.3vw, 1.25rem);
+    line-height: 1.55;
+    color: #4a4a4a;
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+/* ─── Main White Card Container ─────────────────────────────────────────────── */
+.allocator__card {
+    background-color: var(--color-white);
+    border-radius: 24px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.06);
+    padding: 44px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+@media (max-width: 768px) {
+    .allocator__card {
+        padding: 28px 20px;
+        gap: 32px;
+    }
+}
+
+/* ─── Income Selector Bar ────────────────────────────────────────────────────── */
+.allocator__selector-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 32px;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.12);
+}
+
+.allocator__selector-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.allocator__selector-label {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--color-dark);
+}
+
+.allocator__selector-label span {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #666;
+    margin-top: 2px;
+}
+
+.allocator__amount-display {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #f7f4ee;
+    border: 2px solid rgba(0, 0, 0, 0.12);
+    border-radius: 16px;
+    padding: 8px 18px;
+}
+
+.allocator__amount-currency {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--color-dark);
+}
+
+.allocator__amount-input {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 900;
+    color: var(--color-green);
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 140px;
+    letter-spacing: -0.02em;
+}
+
+.allocator__amount-per {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #777;
+}
+
+/* Preset Chips */
+.allocator__presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.allocator__preset-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #777;
+    margin-right: 4px;
+}
+
+.allocator__preset-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 7px 16px;
+    border-radius: 9999px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background-color: #fcfbfa;
+    color: var(--color-dark);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.allocator__preset-btn:hover {
+    background-color: #f0ebe6;
+    transform: translateY(-1px);
+}
+
+.allocator__preset-btn.is-active {
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    border-color: var(--color-dark);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Slider */
+.allocator__slider-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.allocator__slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 6px;
+    background: #e6e1d9;
+    outline: none;
+    cursor: pointer;
+}
+
+.allocator__slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--color-green);
+    border: 3px solid #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.allocator__slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+.allocator__slider::-moz-range-thumb {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--color-green);
+    border: 3px solid #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+/* ─── 3 Buckets Grid ─────────────────────────────────────────────────────────── */
+.allocator__buckets-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.allocator__section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.allocator__section-title {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--color-dark);
+    letter-spacing: -0.02em;
+}
+
+.allocator__section-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* Split Visual Bar */
+.allocator__split-bar-track {
+    width: 100%;
+    height: 12px;
+    border-radius: 9999px;
+    overflow: hidden;
+    display: flex;
+    background-color: #eee9e0;
+}
+
+.allocator__split-segment {
+    height: 100%;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.allocator__split-segment--living {
+    background-color: #efbbd8;
+}
+
+.allocator__split-segment--shield {
+    background-color: #82a0ff;
+}
+
+.allocator__split-segment--invest {
+    background-color: #29725f;
+}
+
+/* Buckets Cards */
+.allocator__buckets-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 8px;
+}
+
+@media (max-width: 900px) {
+    .allocator__buckets-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.allocator__bucket-card {
+    border-radius: 18px;
+    padding: 24px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.allocator__bucket-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+.allocator__bucket-card--living {
+    background-color: #fbf5f8;
+}
+
+.allocator__bucket-card--shield {
+    background-color: #f3f6ff;
+}
+
+.allocator__bucket-card--invest {
+    background-color: #f2f8f5;
+    border-color: rgba(41, 114, 95, 0.25);
+}
+
+.allocator__bucket-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.allocator__bucket-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border-radius: 9999px;
+}
+
+.allocator__bucket-card--living .allocator__bucket-tag {
+    background-color: #efbbd8;
+    color: #4a1930;
+}
+
+.allocator__bucket-card--shield .allocator__bucket-tag {
+    background-color: #82a0ff;
+    color: #0d2673;
+}
+
+.allocator__bucket-card--invest .allocator__bucket-tag {
+    background-color: #29725f;
+    color: #ffffff;
+}
+
+.allocator__bucket-pct {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #666;
+}
+
+.allocator__bucket-name {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--color-dark);
+    margin-bottom: 4px;
+}
+
+.allocator__bucket-sum {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--color-dark);
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+}
+
+.allocator__bucket-card--invest .allocator__bucket-sum {
+    color: var(--color-green);
+}
+
+.allocator__bucket-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: #555;
+    margin-bottom: 16px;
+}
+
+.allocator__bucket-tip {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.04);
+    color: #333;
+}
+
+/* ─── Options Verdict Grid ───────────────────────────────────────────────────── */
+.allocator__options-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 10px;
+}
+
+.allocator__options-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+@media (max-width: 1050px) {
+    .allocator__options-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .allocator__options-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.allocator__opt-card {
+    background-color: #faf8f5;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 18px;
+    padding: 22px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 14px;
+    position: relative;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.allocator__opt-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.allocator__opt-card--winner {
+    background-color: #f2f9f5;
+    border: 2px solid #29725f;
+    box-shadow: 0 8px 24px rgba(41, 114, 95, 0.12);
+}
+
+.allocator__opt-card--danger {
+    background-color: #fff6f6;
+    border-color: rgba(229, 62, 62, 0.2);
+}
+
+.allocator__opt-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.allocator__opt-badge {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+.allocator__opt-card--winner .allocator__opt-badge {
+    background-color: #29725f;
+    color: #ffffff;
+}
+
+.allocator__opt-card--neutral .allocator__opt-badge {
+    background-color: #82a0ff;
+    color: #0c2573;
+}
+
+.allocator__opt-card--hold .allocator__opt-badge {
+    background-color: #e6fab9;
+    color: #3b5014;
+}
+
+.allocator__opt-card--danger .allocator__opt-badge {
+    background-color: #fed7d7;
+    color: #9b2c2c;
+}
+
+.allocator__opt-return {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #333;
+    white-space: nowrap;
+}
+
+.allocator__opt-name {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--color-dark);
+    margin: 4px 0 2px;
+}
+
+.allocator__opt-verdict {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-green);
+    margin-bottom: 6px;
+}
+
+.allocator__opt-card--danger .allocator__opt-verdict {
+    color: #c53030;
+}
+
+.allocator__opt-card--neutral .allocator__opt-verdict {
+    color: #2b6cb0;
+}
+
+.allocator__opt-card--hold .allocator__opt-verdict {
+    color: #744210;
+}
+
+.allocator__opt-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: #555;
+}
+
+.allocator__opt-footer {
+    border-top: 1px dashed rgba(0, 0, 0, 0.08);
+    padding-top: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ─── 3-Step Student Action Plan ─────────────────────────────────────────────── */
+.allocator__action-box {
+    background-color: #f7f4ed;
+    border-radius: 18px;
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.allocator__action-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.allocator__action-title {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--color-dark);
+}
+
+.allocator__action-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+@media (max-width: 800px) {
+    .allocator__action-steps {
+        grid-template-columns: 1fr;
+    }
+}
+
+.allocator__action-step {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.allocator__action-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    font-family: 'Epilogue', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.allocator__action-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.84rem;
+    line-height: 1.4;
+    color: #333;
+}
+
+.allocator__action-text strong {
+    display: block;
+    color: var(--color-dark);
+    margin-bottom: 2px;
+}

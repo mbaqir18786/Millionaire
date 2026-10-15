@@ -1,0 +1,509 @@
+/* ─── Student Progress Tracker Section ─────────────────────────────────────── */
+.student-tracker-wrapper {
+    padding: 60px 20px 0 !important;
+}
+
+.student-tracker-section {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0 100px;
+    background-color: transparent;
+}
+
+/* ─── Section Header ─────────────────────────────────────────────────────────── */
+.tracker__header {
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto 50px;
+}
+
+.tracker__kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #efbbd8;
+    color: #4a1930;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    margin-bottom: 20px;
+}
+
+.tracker__title {
+    font-family: 'Epilogue', sans-serif;
+    font-size: clamp(2.4rem, 4.5vw, 4.2rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--color-dark);
+    margin-bottom: 20px;
+}
+
+.tracker__title em {
+    font-style: italic;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 400;
+    color: #4b69f0;
+}
+
+.tracker__subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(1rem, 1.3vw, 1.25rem);
+    line-height: 1.55;
+    color: #4a4a4a;
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+/* ─── Main White Card Container ─────────────────────────────────────────────── */
+.tracker__card {
+    background-color: var(--color-white);
+    border-radius: 24px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.06);
+    padding: 44px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+@media (max-width: 768px) {
+    .tracker__card {
+        padding: 28px 20px;
+        gap: 32px;
+    }
+}
+
+/* ─── Live Stage Bar / Stepper ───────────────────────────────────────────────── */
+.tracker__timeline-box {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-bottom: 30px;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.12);
+}
+
+.tracker__timeline-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.tracker__timeline-title {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--color-dark);
+}
+
+.tracker__timeline-title span {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #666;
+    margin-top: 2px;
+}
+
+.tracker__stage-badge {
+    background-color: #f7f4ee;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 6px 14px;
+    border-radius: 9999px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--color-dark);
+}
+
+/* Stage chips */
+.tracker__stage-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tracker__stage-chip {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 9999px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background-color: #faf8f5;
+    color: var(--color-dark);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tracker__stage-chip:hover {
+    background-color: #f0ebe6;
+    transform: translateY(-1px);
+}
+
+.tracker__stage-chip.is-active {
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    border-color: var(--color-dark);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ─── Hero Summary: Where You've Reached Till Now ────────────────────────────── */
+.tracker__summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+@media (max-width: 950px) {
+    .tracker__summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 550px) {
+    .tracker__summary-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tracker__stat-box {
+    border-radius: 18px;
+    padding: 22px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.tracker__stat-box--time {
+    background-color: #f5f8ff;
+    border-color: rgba(75, 105, 240, 0.2);
+}
+
+.tracker__stat-box--saved {
+    background-color: #fdfbf7;
+}
+
+.tracker__stat-box--shield {
+    background-color: #f6fbf7;
+}
+
+.tracker__stat-box--portfolio {
+    background-color: #10211a;
+    color: #ffffff;
+    border: none;
+}
+
+.tracker__stat-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.8;
+    margin-bottom: 8px;
+}
+
+.tracker__stat-value {
+    font-family: 'Epilogue', sans-serif;
+    font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+}
+
+.tracker__stat-box--portfolio .tracker__stat-value {
+    color: #eed7a1;
+}
+
+.tracker__stat-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.35;
+    opacity: 0.85;
+}
+
+/* ─── Journey Progress Bar ───────────────────────────────────────────────────── */
+.tracker__progress-wrap {
+    background-color: #f8f6f0;
+    border-radius: 18px;
+    padding: 24px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.tracker__progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tracker__progress-title {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--color-dark);
+}
+
+.tracker__progress-status {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-green);
+}
+
+.tracker__bar-track {
+    width: 100%;
+    height: 14px;
+    background-color: #e5ded3;
+    border-radius: 9999px;
+    overflow: hidden;
+    position: relative;
+}
+
+.tracker__bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4b69f0, #29725f);
+    border-radius: 9999px;
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tracker__milestone-markers {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 4px;
+}
+
+/* ─── Interactive Action Log Checklist ───────────────────────────────────────── */
+.tracker__log-section {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.tracker__log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tracker__log-title {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--color-dark);
+    letter-spacing: -0.02em;
+}
+
+.tracker__log-count {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-green);
+    background-color: var(--color-lightgreen);
+    padding: 4px 12px;
+    border-radius: 9999px;
+}
+
+.tracker__checklist-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+@media (max-width: 800px) {
+    .tracker__checklist-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tracker__check-item {
+    background-color: #faf8f5;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.tracker__check-item:hover {
+    border-color: rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.tracker__check-item.is-done {
+    background-color: #f2f9f5;
+    border-color: rgba(41, 114, 95, 0.25);
+}
+
+.tracker__checkbox {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: 2px solid #bbb;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all 0.2s ease;
+}
+
+.tracker__check-item.is-done .tracker__checkbox {
+    background-color: var(--color-green);
+    border-color: var(--color-green);
+    color: #ffffff;
+}
+
+.tracker__check-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex-grow: 1;
+}
+
+.tracker__check-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.tracker__check-title {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--color-dark);
+}
+
+.tracker__check-item.is-done .tracker__check-title {
+    color: var(--color-green);
+}
+
+.tracker__check-badge {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.tracker__check-item.is-done .tracker__check-badge {
+    background-color: #dcec9d;
+    color: #275216;
+}
+
+.tracker__check-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: #555;
+}
+
+/* ─── Calm Holdings Summary (No dashboard stress) ────────────────────────────── */
+.tracker__holdings-box {
+    background-color: #fbf9f5;
+    border-radius: 18px;
+    padding: 24px 28px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.tracker__holdings-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tracker__holdings-title {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--color-dark);
+}
+
+.tracker__holdings-shield-badge {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    background-color: #82a0ff;
+    color: #0d2673;
+    padding: 4px 12px;
+    border-radius: 9999px;
+}
+
+.tracker__accounts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+@media (max-width: 700px) {
+    .tracker__accounts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tracker__account-card {
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding: 18px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tracker__account-name {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--color-dark);
+}
+
+.tracker__account-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: #666;
+}
+
+.tracker__account-footer {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-top: 1px dashed rgba(0, 0, 0, 0.08);
+    padding-top: 8px;
+    margin-top: 4px;
+    color: #444;
+}

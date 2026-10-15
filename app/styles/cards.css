@@ -1,0 +1,202 @@
+/* ─── Cards Wrapper ──────────────────────────────────────────────────────── */
+.cards-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  height: 620px;
+  margin: 60px auto 80px;
+  display: flex;
+  justify-content: center;
+  cursor:
+    url("/assets/Cursor SVG/cursor-text.svg") 12 12,
+    auto;
+}
+
+/* ─── Base Card ──────────────────────────────────────────────────────────── */
+.card {
+  width: 320px;
+  height: fit-content;
+  min-height: 420px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 0.85rem;
+  padding: 2.5rem 1.4rem 1.75rem;
+  cursor: pointer;
+  border-radius: 14px;
+  color: var(--color-white);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transform-origin: center center;
+  cursor:
+    url("/assets/Cursor SVG/cursor-text.svg") 12 12,
+    auto;
+}
+
+.card-title {
+  text-align: left;
+  font-size: 1.75rem;
+  font-family: "Epilogue", sans-serif;
+  font-weight: 800;
+  margin-top: 15px;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.card-divider-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+/* ─── Card Color Variants ────────────────────────────────────────────────── */
+.card-green {
+  background-color: var(--color-green);
+  left: calc(
+    50% - 650px
+  ); /* Adjusted to -650px to better center the first card */
+  top: 50px;
+  transform: rotate(4deg);
+  z-index: 1;
+}
+
+.card-darkblue {
+  background-color: var(--color-lightblue);
+  color: var(--color-dark);
+  left: calc(50% - 430px);
+  top: 100px;
+  transform: rotate(-5deg);
+  z-index: 2;
+}
+
+.card-orange {
+  background-color: var(--color-orange);
+  color: var(--color-dark);
+  left: calc(50% - 220px);
+  top: 20px;
+  transform: rotate(5deg);
+  z-index: 3;
+}
+
+.card-maroon {
+  background-color: var(--color-maroon);
+  left: calc(50% + 50px);
+  top: 30px;
+  transform: rotate(-8deg);
+  z-index: 4;
+}
+
+.card-pink {
+  background-color: var(--color-pink);
+  color: var(--color-dark);
+  left: calc(50% + 320px);
+  top: 70px;
+  transform: rotate(5deg);
+  z-index: 5;
+}
+
+/* Expand hit area for middle cards to bridge gaps */
+.card-darkblue::after,
+.card-orange::after,
+.card-maroon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -35px;
+  right: -35px;
+}
+
+/* Light card divider overrides */
+.card-pink .card-divider-svg,
+.card-orange .card-divider-svg,
+.card-darkblue .card-divider-svg {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* ─── Card List ──────────────────────────────────────────────────────────── */
+.card-list {
+  list-style: none;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+}
+
+.card-list li {
+  margin-bottom: 7px;
+  font-size: 0.98rem;
+  font-weight: 500;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.32;
+  letter-spacing: -0.2px;
+}
+
+.services-card__bullet-svg {
+  width: 14px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: currentColor;
+}
+
+/* ─── Card Sticker Variables ─────────────────────────────────────────────── */
+:root {
+  --sticker-camera-w: 160px;
+  --sticker-phone-w: 120px;
+  --sticker-smiley-w: 120px;
+  --sticker-hand-w: 120px;
+  --sticker-heart-w: 140px;
+
+  --sticker-camera-top: -45px;
+  --sticker-camera-left: 120px;
+
+  --sticker-phone-top: -45px;
+  --sticker-phone-left: 155px;
+
+  --sticker-smiley-top: -50px;
+
+  --sticker-hand-top: -40px;
+
+  --sticker-heart-top: -50px;
+  --sticker-heart-right: 15px;
+}
+
+/* ─── Card Step Badges (Authentic Editorial Number Stamps) ───────────────── */
+.card-step-badge {
+  position: absolute;
+  top: -20px;
+  right: 20px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--color-black);
+  border: 2.5px solid var(--color-white);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Epilogue', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+  transform: rotate(5deg);
+  z-index: 10;
+  pointer-events: none;
+  line-height: 1;
+}
+
+.card-step-badge span {
+  display: block;
+  transform: translateY(-0.5px);
+}
+
+.card-sticker {
+  display: none;
+}
+
+

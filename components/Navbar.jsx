@@ -108,12 +108,19 @@ export default function Navbar() {
                 visibility: 'hidden',
                 scale: 0,
                 opacity: 0,
+                pointerEvents: 'none',
                 transformOrigin: workOrigin
             });
             gsap.set(workItems, { y: 10, opacity: 0 });
             gsap.set(workBlob, { transformOrigin: 'center center' });
 
+            let leftCloseTimer = null;
+
             const onEnterLeft = () => {
+                if (leftCloseTimer) {
+                    clearTimeout(leftCloseTimer);
+                    leftCloseTimer = null;
+                }
                 gsap.killTweensOf(workBox);
                 gsap.killTweensOf(workItems);
                 gsap.killTweensOf(workBlob);
@@ -122,7 +129,7 @@ export default function Navbar() {
                 // Fast 360 blob spin — like it's spinning then releasing the box
                 gsap.to(workBlob, { rotation: '+=360', duration: 0.7, ease: 'power3.inOut' });
 
-                gsap.set(workBox, { visibility: 'visible' });
+                gsap.set(workBox, { visibility: 'visible', pointerEvents: 'auto' });
                 // Box grows out smoothly from the icon center
                 gsap.fromTo(workBox,
                     { scale: 0, opacity: 0 },
@@ -133,31 +140,39 @@ export default function Navbar() {
             };
 
             const onLeaveLeft = () => {
-                gsap.killTweensOf(workBox);
-                gsap.killTweensOf(workItems);
-                gsap.killTweensOf(workBlob);
-                hideOverlay();
+                if (leftCloseTimer) clearTimeout(leftCloseTimer);
+                leftCloseTimer = setTimeout(() => {
+                    gsap.killTweensOf(workBox);
+                    gsap.killTweensOf(workItems);
+                    gsap.killTweensOf(workBlob);
+                    hideOverlay();
 
-                gsap.to(workBlob, { rotation: 0, duration: 0.5, ease: 'power2.out' });
+                    gsap.to(workBlob, { rotation: 0, duration: 0.5, ease: 'power2.out' });
 
-                // Items fade quickly
-                gsap.to(workItems, { y: 10, opacity: 0, duration: 0.15, ease: 'power2.in' });
-                // Box shrinks back into icon smoothly
-                gsap.to(workBox, {
-                    scale: 0,
-                    opacity: 0,
-                    duration: 0.3,
-                    ease: 'expo.in',
-                    delay: 0.05,
-                    onComplete: () => gsap.set(workBox, { visibility: 'hidden' })
-                });
+                    // Items fade quickly
+                    gsap.to(workItems, { y: 10, opacity: 0, duration: 0.15, ease: 'power2.in' });
+                    // Box shrinks back into icon smoothly
+                    gsap.to(workBox, {
+                        scale: 0,
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: 'expo.in',
+                        delay: 0.05,
+                        onComplete: () => gsap.set(workBox, { visibility: 'hidden', pointerEvents: 'none' })
+                    });
+                }, 300);
             };
 
             navLeft.addEventListener('mouseenter', onEnterLeft);
             navLeft.addEventListener('mouseleave', onLeaveLeft);
+            workBox.addEventListener('mouseenter', onEnterLeft);
+            workBox.addEventListener('mouseleave', onLeaveLeft);
             cleanups.push(() => {
+                if (leftCloseTimer) clearTimeout(leftCloseTimer);
                 navLeft.removeEventListener('mouseenter', onEnterLeft);
                 navLeft.removeEventListener('mouseleave', onLeaveLeft);
+                workBox.removeEventListener('mouseenter', onEnterLeft);
+                workBox.removeEventListener('mouseleave', onLeaveLeft);
             });
         }
 
@@ -185,17 +200,24 @@ export default function Navbar() {
                 visibility: 'hidden',
                 scale: 0,
                 opacity: 0,
+                pointerEvents: 'none',
                 transformOrigin: waOrigin
             });
             gsap.set(waItems, { y: 10, opacity: 0 });
 
+            let rightCloseTimer = null;
+
             const onEnterRight = () => {
+                if (rightCloseTimer) {
+                    clearTimeout(rightCloseTimer);
+                    rightCloseTimer = null;
+                }
                 gsap.killTweensOf(waBox);
                 gsap.killTweensOf(waItems);
                 showOverlay();
                 if (waSvgPath) gsap.to(waSvgPath, { fill: '#0e6634ff', duration: 0.3 }); // Darker WA green
 
-                gsap.set(waBox, { visibility: 'visible' });
+                gsap.set(waBox, { visibility: 'visible', pointerEvents: 'auto' });
                 // Box grows out smoothly from the WA icon center
                 gsap.fromTo(waBox,
                     { scale: 0, opacity: 0 },
@@ -206,29 +228,37 @@ export default function Navbar() {
             };
 
             const onLeaveRight = () => {
-                gsap.killTweensOf(waBox);
-                gsap.killTweensOf(waItems);
-                hideOverlay();
-                if (waSvgPath) gsap.to(waSvgPath, { fill: 'currentColor', duration: 0.3 });
+                if (rightCloseTimer) clearTimeout(rightCloseTimer);
+                rightCloseTimer = setTimeout(() => {
+                    gsap.killTweensOf(waBox);
+                    gsap.killTweensOf(waItems);
+                    hideOverlay();
+                    if (waSvgPath) gsap.to(waSvgPath, { fill: 'currentColor', duration: 0.3 });
 
-                // Items fade quickly
-                gsap.to(waItems, { y: 10, opacity: 0, duration: 0.15, ease: 'power2.in' });
-                // Box shrinks back into WA icon smoothly
-                gsap.to(waBox, {
-                    scale: 0,
-                    opacity: 0,
-                    duration: 0.3,
-                    ease: 'expo.in',
-                    delay: 0.05,
-                    onComplete: () => gsap.set(waBox, { visibility: 'hidden' })
-                });
+                    // Items fade quickly
+                    gsap.to(waItems, { y: 10, opacity: 0, duration: 0.15, ease: 'power2.in' });
+                    // Box shrinks back into WA icon smoothly
+                    gsap.to(waBox, {
+                        scale: 0,
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: 'expo.in',
+                        delay: 0.05,
+                        onComplete: () => gsap.set(waBox, { visibility: 'hidden', pointerEvents: 'none' })
+                    });
+                }, 300);
             };
 
             navRight.addEventListener('mouseenter', onEnterRight);
             navRight.addEventListener('mouseleave', onLeaveRight);
+            waBox.addEventListener('mouseenter', onEnterRight);
+            waBox.addEventListener('mouseleave', onLeaveRight);
             cleanups.push(() => {
+                if (rightCloseTimer) clearTimeout(rightCloseTimer);
                 navRight.removeEventListener('mouseenter', onEnterRight);
                 navRight.removeEventListener('mouseleave', onLeaveRight);
+                waBox.removeEventListener('mouseenter', onEnterRight);
+                waBox.removeEventListener('mouseleave', onLeaveRight);
             });
         }
 

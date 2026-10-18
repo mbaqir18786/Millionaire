@@ -22,7 +22,10 @@ export default function ServiceCards() {
       },
     });
 
-    initCardAnimations();
+    const cleanupCards = initCardAnimations();
+    return () => {
+      if (cleanupCards) cleanupCards();
+    };
   }, []);
 
   return (
@@ -107,16 +110,15 @@ function initCardAnimations() {
     { rotation: 5 },
   ];
 
-  const isMobile = window.matchMedia("(max-width: 768px)").matches;
-  //   let leaveTimeout = null; no need GSAP can handle the interlining tweens internally once you set overwrite: true
+  const mm = gsap.matchMedia();
 
-  if (!isMobile) {
+  // Desktop (screens > 1024px)
+  mm.add("(min-width: 1025px)", () => {
+    const enterListeners = [];
+    const leaveListeners = [];
+
     cards.forEach((card, index) => {
-      card.addEventListener("mouseenter", () => {
-        // if (leaveTimeout) {
-        //   clearTimeout(leaveTimeout);
-        //   leaveTimeout = null;
-        // }
+      const onEnter = () => {
         const hoverGap = 120;
         const clusterGap = 150;
         const cardWidth = 320;
@@ -185,10 +187,9 @@ function initCardAnimations() {
             });
           });
         }
-      });
+      };
 
-      card.addEventListener("mouseleave", () => {
-        // leaveTimeout = setTimeout(() => {
+      const onLeave = () => {
         cards.forEach((c, i) => {
           gsap.to(c, {
             x: 0,
@@ -202,23 +203,37 @@ function initCardAnimations() {
             delay: 0.08,
           });
         });
-        // }, 80);
-      });
+      };
+
+      card.addEventListener("mouseenter", onEnter);
+      card.addEventListener("mouseleave", onLeave);
+      enterListeners.push({ card, onEnter });
+      leaveListeners.push({ card, onLeave });
     });
-  } else {
-    // ─── Mobile: Stacked card scroll reveal ───
+
+    return () => {
+      enterListeners.forEach(({ card, onEnter }) => card.removeEventListener("mouseenter", onEnter));
+      leaveListeners.forEach(({ card, onLeave }) => card.removeEventListener("mouseleave", onLeave));
+      gsap.set(cards, { clearProps: "all" });
+    };
+  });
+
+  // Mobile & Tablet (screens <= 1024px)
+  mm.add("(max-width: 1024px)", () => {
     const cardsWrapper = document.querySelector(".cards-wrapper");
-    const scrollPerCard = window.innerHeight * 0.8;
-    const navH = 60;
-    const mobileRotations = [-6, 4, -8, 5, -3];
+    if (!cardsWrapper) return;
+
+    const scrollPerCard = Math.min(window.innerHeight * 0.75, 450);
+    const navH = 50;
+    const mobileRotations = [-4, 3, -5, 4, -2];
 
     cards.forEach((card, i) => {
       gsap.set(card, {
         position: "absolute",
         left: "50%",
-        top: "0",
+        top: 0,
         xPercent: -50,
-        y: i === 0 ? 0 : window.innerHeight * 1.1,
+        y: i === 0 ? 0 : window.innerHeight * 1.05,
         rotation: mobileRotations[i % mobileRotations.length],
         zIndex: i + 1,
         transformOrigin: "center center",
@@ -226,10 +241,10 @@ function initCardAnimations() {
     });
 
     const wrapperH =
-      window.innerHeight * 0.7 + scrollPerCard * (cards.length - 1);
+      window.innerHeight * 0.65 + scrollPerCard * (cards.length - 1);
     gsap.set(cardsWrapper, { height: wrapperH });
 
-    ScrollTrigger.create({
+    const pinTrigger = ScrollTrigger.create({
       trigger: cardsWrapper,
       start: `top ${navH}px`,
       end: `+=${scrollPerCard * (cards.length - 1)}`,
@@ -238,22 +253,33 @@ function initCardAnimations() {
       id: "mobile-cards-pin",
     });
 
+    const cardTweens = [];
     cards.forEach((card, i) => {
       if (i === 0) return;
-      gsap.fromTo(
+      const tw = gsap.fromTo(
         card,
-        { y: window.innerHeight * 1.1 },
+        { y: window.innerHeight * 1.05 },
         {
           y: 0,
-          ease: "power3.out",
+          ease: "power2.out",
           scrollTrigger: {
             trigger: cardsWrapper,
             start: `top+=${(i - 1) * scrollPerCard} ${navH}px`,
             end: `top+=${i * scrollPerCard} ${navH}px`,
-            scrub: 0.4,
+            scrub: 0.3,
           },
         },
       );
+      cardTweens.push(tw);
     });
-  }
+
+    return () => {
+      pinTrigger.kill();
+      cardTweens.forEach(t => t.kill());
+      gsap.set(cards, { clearProps: "all" });
+      gsap.set(cardsWrapper, { clearProps: "all" });
+    };
+  });
+
+  return () => mm.revert();
 }

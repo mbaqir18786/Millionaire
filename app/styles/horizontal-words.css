@@ -38,6 +38,7 @@
     top: 50%;
     transform: translate(-50%, 9em);
     width: max-content;
+    max-width: 90vw;
     text-align: center;
     display: flex;
     flex-direction: column;

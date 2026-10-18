@@ -115,7 +115,10 @@
     flex-direction: column;
 }
 
-.nav-hover-trigger:hover .nav-popout {
+.nav-hover-trigger:hover .nav-popout,
+.nav-left:hover .nav-popout,
+.nav-right:hover .nav-popout,
+.nav-popout:hover {
     pointer-events: auto;
 }
 
@@ -226,7 +229,7 @@
     font-weight: 800;
     font-size: 1.4rem;
     text-decoration: none;
-    margin-top: 10rem;
+    margin-top: auto;
     cursor: url("/assets/Cursor SVG/cursor-pointer.svg") 12 12, pointer;
 }
 
